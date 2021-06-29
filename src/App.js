@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles.css"
+import "./components/Header"
+import Main from "./components/Main"
+import Header from "./components/Header"
+import React, { useEffect } from "react"
 
 function App() {
+  const [dogs, setDogs] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:3000")
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      {/* <head>
+        <title>JS</title>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="style.css" />
+        <script type="text/javascript" src="src/data.js"></script>
+        <script defer src="src/index.js"></script>
+      </head> */}
+      <body>
+        <Header />
+        <Main />
+      </body>
+    </>
+  )
 }
 
-export default App;
+export default App
