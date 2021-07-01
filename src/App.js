@@ -1,28 +1,50 @@
 import "./styles.css"
 import "./components/Header"
-import Main from "./components/Main"
+import DogSectionPage from "./pages/DogSectionPage"
+import DogCardPage from "./pages/DogCardPage"
 import Header from "./components/Header"
-import React, { useEffect } from "react"
+import FormPage from "./pages/FormPage"
+import { useEffect, useState } from "react"
+import { Route, Switch } from "react-router-dom"
 
 function App() {
   const [dogs, setDogs] = useState([])
   useEffect(() => {
-    fetch("http://localhost:3000")
-  })
+    fetch("http://localhost:4000/dogs")
+      .then(resp => resp.json())
+      .then(setDogs)
+  }, [])
+
+  function addDog(newDogData) {
+    fetch("http://localhost:4000/dogs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newDogData),
+    })
+      .then(resp => resp.json())
+      .then(dog => {
+        setDogs([...dogs, dog])
+      })
+
+    console.log("newdogdataApp:", newDogData)
+  }
 
   return (
     <>
-      {/* <head>
-        <title>JS</title>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="style.css" />
-        <script type="text/javascript" src="src/data.js"></script>
-        <script defer src="src/index.js"></script>
-      </head> */}
-      <body>
-        <Header />
-        <Main />
-      </body>
+      <Header dogs={dogs} />
+      <main className="main">
+        <Switch>
+          <Route path="/" exact>
+            <DogSectionPage />
+          </Route>
+          <Route path="/dogcards/:id" exact>
+            <DogCardPage />
+          </Route>
+          <Route path="/form" exact>
+            <FormPage addDog={addDog} />
+          </Route>
+        </Switch>
+      </main>
     </>
   )
 }

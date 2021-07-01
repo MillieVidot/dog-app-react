@@ -74,6 +74,11 @@ img {
 
 /* Components */
 
+.dogs-list__button a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .dogs-list__button {
   display: grid;
   place-content: center;
@@ -99,7 +104,7 @@ img {
 }
 
 .dogs-list__button--add {
-  font-size: 3rem;
+  font-size: 1.5rem;
 }
 
 .main__dog-section h2 {
